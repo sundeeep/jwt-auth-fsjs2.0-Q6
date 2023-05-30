@@ -14,6 +14,21 @@ app.use(cors());
 app.use(cookieParser());
 
 const authRouter = require("./auth.router");
-app.use('/api/v1/', authRouter)
+
+app.use('/auth/', authRouter)
+app.get("/", (req, res)=>{
+    res.status(404).json({
+        success: "true",
+        status: "200",
+        message: "This is Home Route",
+    })
+})
+app.get("*", (req, res)=>{
+    res.status(404).json({
+        status: "404 NOT FOUND",
+        message: "This resource is invalid",
+        success: "false",
+    })
+})
 
 module.exports = app;
